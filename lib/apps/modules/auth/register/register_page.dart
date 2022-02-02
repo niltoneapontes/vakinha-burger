@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vakinha_burger_mobile/apps/core/ui/vakinha_state.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/vakinha_appbar.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/vakinha_button.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/vakinha_textformfield.dart';
+import 'package:vakinha_burger_mobile/apps/modules/auth/register/register_controller.dart';
+import 'package:validatorless/validatorless.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState
+    extends VakinhaState<RegisterPage, RegisterController> {
+  final formKey = GlobalKey<FormState>();
+  final nameEC = TextEditingController();
+  final emailEC = TextEditingController();
+  final passwordEC = TextEditingController();
+
+  @override
+  void dispose() {
+    nameEC.dispose();
+    emailEC.dispose();
+    passwordEC.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +41,7 @@ class RegisterPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Form(
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -34,28 +57,45 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  const VakinhaTextformfield(
+                  VakinhaTextformfield(
                     label: 'Nome',
+                    controller: nameEC,
+                    validator: Validatorless.required('Nome obrigatório'),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  const VakinhaTextformfield(
+                  VakinhaTextformfield(
                     label: 'E-mail',
+                    controller: emailEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('E-mail é obrigatório'),
+                      Validatorless.email('E-mail inválido')
+                    ]),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  const VakinhaTextformfield(
+                  VakinhaTextformfield(
                     label: 'Senha',
                     obscureText: true,
+                    controller: passwordEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Senha é obrigatória'),
+                      Validatorless.min(
+                          6, 'Senha deve contar pelo menos 6 caracteres')
+                    ]),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  const VakinhaTextformfield(
+                  VakinhaTextformfield(
                     label: 'Confirmação da senha',
                     obscureText: true,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Confirme a senha'),
+                      Validatorless.compare(passwordEC, 'Senhas não conferem')
+                    ]),
                   ),
                   const SizedBox(
                     height: 30,
@@ -63,7 +103,17 @@ class RegisterPage extends StatelessWidget {
                   Center(
                     child: VakinhaButton(
                       width: context.width,
-                      onPressed: () {},
+                      onPressed: () {
+                        final formValid =
+                            formKey.currentState?.validate() ?? false;
+                        if (formValid) {
+                          controller.register(
+                            name: nameEC.text,
+                            email: emailEC.text,
+                            password: passwordEC.text,
+                          );
+                        }
+                      },
                       label: 'CADASTRAR',
                     ),
                   ),
