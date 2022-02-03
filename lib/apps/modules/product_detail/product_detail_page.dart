@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/formatter.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/vakinha_ui.dart';
+import 'package:vakinha_burger_mobile/apps/core/ui/widgets/plus_minus_box.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/vakinha_appbar.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/vakinha_button.dart';
 import './product_detail_controller.dart';
@@ -27,10 +28,10 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   Container(
                     width: context.width,
                     height: context.heightTransformer(reducedBy: 60),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                            'https://s2.glbimg.com/-on4mnFlw5G3RI4sFYUyPcsE5lE=/620x466/e.glbimg.com/og/ed/f/original/2021/05/26/burger_nou.jpeg'),
+                            'http://dartweek.academiadoflutter.com.br/images${controller.product.image}'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -40,7 +41,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20),
-                    child: Text('X-TUDAO',
+                    child: Text(controller.product.name,
                         style: context.textTheme.headline4!.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -49,29 +50,43 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      'X-TUDAO',
+                      controller.product.description,
                       style: context.textTheme.bodyText2!,
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('Componente de botão'),
+                  Obx(() {
+                    return PlusMinusBox(
+                      quantity: controller.quantity,
+                      price: controller.product.price,
+                      minusCallback: controller.removeProduct,
+                      plusCallback: controller.addProduct,
+                    );
+                  }),
                   const Divider(),
                   ListTile(
                     title: const Text("Total", style: VakinhaUi.textBold),
-                    trailing: Text(
-                      Formatter.formatCurrency(200),
-                      style: VakinhaUi.textBold,
-                    ),
+                    trailing: Obx(() {
+                      return Text(
+                        Formatter.formatCurrency(200),
+                        style: VakinhaUi.textBold,
+                      );
+                    }),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   Center(
-                      child: SizedBox(
-                          child: VakinhaButton(
-                              onPressed: () {}, label: 'ADICIONAR')))
+                    child: SizedBox(
+                      child: VakinhaButton(
+                          onPressed: controller.addProductInShoppingCart,
+                          label: controller.alreadyAdded
+                              ? 'ATUALIZAR'
+                              : 'ADICIONAR'),
+                    ),
+                  )
                 ],
               ),
             ),
