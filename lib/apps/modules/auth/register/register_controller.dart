@@ -1,10 +1,11 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:vakinha_burger_mobile/apps/core/mixin/loader_mixin.dart';
 import 'package:vakinha_burger_mobile/apps/core/mixin/messages_mixin.dart';
 import 'package:vakinha_burger_mobile/apps/core/rest_client/rest_client.dart';
-import 'package:vakinha_burger_mobile/apps/modules/auth/repositories/auth/auth_repository.dart';
+import 'package:vakinha_burger_mobile/apps/repositories/auth/auth_repository.dart';
 
 class RegisterController extends GetxController
     with LoaderMixin, MessagesMixin {
@@ -29,10 +30,9 @@ class RegisterController extends GetxController
       required String password}) async {
     try {
       loading.toggle();
-      final userModel = await _authRepository.register(name, email, password);
+      final userLogged = await _authRepository.register(name, email, password);
       loading.toggle();
-      // TODO: Voltar quando fizer login
-      Get.back();
+      GetStorage().write('/USER_KEY', userLogged);
       message(
         MessageModel(
             title: 'Sucesso',

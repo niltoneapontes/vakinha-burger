@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:vakinha_burger_mobile/apps/core/exceptions/user_not_found_exception.dart';
 import 'package:vakinha_burger_mobile/apps/core/rest_client/rest_client.dart';
-import 'package:vakinha_burger_mobile/apps/modules/auth/models/user_model.dart';
+import 'package:vakinha_burger_mobile/apps/models/user_model.dart';
 
 import './auth_repository.dart';
 

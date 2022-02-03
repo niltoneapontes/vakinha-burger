@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:vakinha_burger_mobile/apps/core/exceptions/user_not_found_exception.dart';
 import 'package:vakinha_burger_mobile/apps/core/mixin/loader_mixin.dart';
 import 'package:vakinha_burger_mobile/apps/core/mixin/messages_mixin.dart';
-import 'package:vakinha_burger_mobile/apps/modules/auth/repositories/auth/auth_repository.dart';
+import 'package:vakinha_burger_mobile/apps/repositories/auth/auth_repository.dart';
 
 class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthRepository _authRepository;
