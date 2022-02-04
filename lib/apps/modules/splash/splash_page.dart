@@ -41,7 +41,7 @@ class SplashPage extends GetView<SplashController> {
                 VakinhaButton(
                   onPressed: () => controller.checkLogged(),
                   label: 'ACESSAR',
-                  width: context.heightTransformer(reducedBy: 40),
+                  width: context.heightTransformer(reducedBy: 80),
                 )
               ],
             ),

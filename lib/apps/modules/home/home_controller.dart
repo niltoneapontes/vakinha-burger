@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,6 +7,8 @@ import 'package:vakinha_burger_mobile/apps/core/services/auth_service.dart';
 import 'package:vakinha_burger_mobile/apps/core/services/shopping_cart_service.dart';
 import 'package:vakinha_burger_mobile/apps/modules/menu/menu_bindings.dart';
 import 'package:vakinha_burger_mobile/apps/modules/menu/menu_page.dart';
+import 'package:vakinha_burger_mobile/apps/modules/order/shopping_cart/shopping_cart_bindings.dart';
+import 'package:vakinha_burger_mobile/apps/modules/order/shopping_cart/shopping_cart_page.dart';
 
 class HomeController extends GetxController {
   // ignore: constant_identifier_names
@@ -27,7 +31,7 @@ class HomeController extends GetxController {
     if (_tabs[index] == '/exit') {
       Get.find<AuthService>().logout();
     } else {
-      Get.toNamed(_tabs[index]);
+      Get.toNamed(_tabs[index], id: NAVIGATOR_KEY);
     }
   }
 
@@ -41,6 +45,13 @@ class HomeController extends GetxController {
       );
     }
 
-    if (settings.name == '/order/shopping_cart') {}
+    if (settings.name == '/order/shopping_cart') {
+      return GetPageRoute(
+        settings: settings,
+        page: () => ShoppingCartPage(),
+        binding: ShoppingCartBindings(),
+        transition: Transition.fadeIn,
+      );
+    }
   }
 }

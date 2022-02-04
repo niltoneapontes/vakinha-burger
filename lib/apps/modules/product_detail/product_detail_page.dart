@@ -70,7 +70,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                     title: const Text("Total", style: VakinhaUi.textBold),
                     trailing: Obx(() {
                       return Text(
-                        Formatter.formatCurrency(200),
+                        Formatter.formatCurrency(controller.totalPrice),
                         style: VakinhaUi.textBold,
                       );
                     }),

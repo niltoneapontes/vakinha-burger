@@ -42,7 +42,7 @@ class ProductDetailController extends GetxController {
 
   void removeProduct() {
     if (_quantity.value > 1) {
-      _quantity.value += 1;
+      _quantity.value -= 1;
     }
   }
 

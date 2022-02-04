@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:vakinha_burger_mobile/apps/core/services/auth_service.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/icon_badge.dart';
 import 'package:vakinha_burger_mobile/apps/core/ui/widgets/vakinha_appbar.dart';
 import './home_controller.dart';

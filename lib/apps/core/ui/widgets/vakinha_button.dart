@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 class VakinhaButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String label;
   final double? width;
-  final double? height;
-  final Colors? color;
+  final double height;
+  final Color? color;
 
   const VakinhaButton({
     Key? key,
     required this.onPressed,
     required this.label,
-    this.width = double.infinity,
-    this.height = 47,
+    this.width,
+    this.height = 50,
     this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
@@ -32,6 +32,7 @@ class VakinhaButton extends StatelessWidget {
         ),
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
+          primary: color,
         ),
       ),
     );

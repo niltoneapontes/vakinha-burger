@@ -11,6 +11,14 @@ class ShoppingCartService extends GetxService {
 
   ShoppingCartModel? getbyId(int id) => _shoppingCart[id];
 
+  double get totalValue {
+    return _shoppingCart.values.fold(0, (totalValue, shoppingCartModel) {
+      totalValue +=
+          shoppingCartModel.quantity * shoppingCartModel.product.price;
+      return totalValue;
+    });
+  }
+
   void addAndRemoveProductInShoppingCart(ProductModel product,
       {required int quantity}) {
     if (quantity == 0) {
@@ -24,4 +32,6 @@ class ShoppingCartService extends GetxService {
       });
     }
   }
+
+  void clear() => _shoppingCart.clear();
 }
