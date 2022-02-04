@@ -79,14 +79,16 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                     height: 20,
                   ),
                   Center(
-                    child: SizedBox(
-                      child: VakinhaButton(
-                          onPressed: controller.addProductInShoppingCart,
-                          label: controller.alreadyAdded
-                              ? 'ATUALIZAR'
-                              : 'ADICIONAR'),
-                    ),
-                  )
+                    child: VakinhaButton(
+                        width: context.widthTransformer(reducedBy: 20),
+                        onPressed: controller.addProductInShoppingCart,
+                        label: controller.alreadyAdded
+                            ? 'ATUALIZAR'
+                            : 'ADICIONAR'),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),

@@ -17,11 +17,11 @@ class OrderRepository implements IOrderRepository {
     final result = await _restClient.post('/order/', {
       'userId': order.userId,
       'cpf': order.cpf,
-      'address': order.address,
+      'addres': order.address,
       'items': order.items
           .map((shoppingCart) => {
                 'quantity': shoppingCart.quantity,
-                'product': shoppingCart.product.id,
+                'productId': shoppingCart.product.id,
               })
           .toList(),
     });

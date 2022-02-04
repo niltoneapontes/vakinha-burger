@@ -54,10 +54,10 @@ class ShoppingCartController extends GetxController {
     );
 
     var orderPix = await _orderRepository.createOrder(order);
-    orderPix.copyWith(value: totalValue);
+    orderPix = orderPix.copyWith(value: _shoppingCartService.totalValue);
 
-    _shoppingCartService.clear();
     Get.offNamed('/orders/finished', arguments: orderPix);
     Get.back(id: HomeController.NAVIGATOR_KEY);
+    _shoppingCartService.clear();
   }
 }
